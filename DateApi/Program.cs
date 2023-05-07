@@ -16,6 +16,12 @@ app.MapGet("/date", () =>
 })
 .WithName("Date");
 
+app.MapGet("/unixEpochDate", () =>
+{
+    return new DateModel { Data = DateTime.UnixEpoch };
+})
+.WithName("UnixEpochDate");
+
 app.Run();
 
 public class DateModel
