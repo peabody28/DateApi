@@ -1,3 +1,6 @@
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +29,8 @@ app.MapGet("/tankopedia", () =>
     using (var reader = new StreamReader(content))
     {
         var strContent = reader.ReadToEnd();
-        return Results.Json(strContent);
+
+        return Results.Text(strContent, "application/json");
     }
 })
 .WithName("Tanks");
