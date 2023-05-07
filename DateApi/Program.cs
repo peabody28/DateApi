@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +16,20 @@ app.MapGet("/date", () =>
 })
 .WithName("Date");
 
-app.MapGet("/unixEpochDate", () =>
+app.MapGet("/tankopedia", () =>
 {
-    return new DateModel { Data = DateTime.UnixEpoch };
+    var webRequest = WebRequest.Create(@"http://peabody28.com/data.json");
+
+    using var response = webRequest.GetResponse();
+    using var content = response.GetResponseStream();
+
+    using (var reader = new StreamReader(content))
+    {
+        var strContent = reader.ReadToEnd();
+        return Results.Json(strContent);
+    }
 })
-.WithName("UnixEpochDate");
+.WithName("Tanks");
 
 app.Run();
 
