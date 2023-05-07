@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -10,8 +12,13 @@ app.UseSwaggerUI();
 
 app.MapGet("/date", () =>
 {
-    return DateTime.UtcNow;
+    return new DateModel { Data = DateTime.UtcNow };
 })
 .WithName("Date");
 
 app.Run();
+
+public class DateModel
+{
+    public DateTime Data { get; set; }
+}
