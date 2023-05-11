@@ -13,6 +13,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseCors(configurePolicy => configurePolicy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
 app.MapGet("/date", () =>
 {
     return new DateModel { Data = DateTime.UtcNow };
